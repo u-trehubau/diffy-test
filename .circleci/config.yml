@@ -1,0 +1,87 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2.0
+
+jobs:
+  display_branch:
+    docker:
+      - image: circleci/php:7.2
+    steps:
+      - run: echo $CIRCLE_BRANCH
+  pr:
+    docker:
+      - image: circleci/php:7.2
+    working_directory: ~/repo
+    environment:
+      SITE_ENV: 'diffy-marketing.pr'
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "3b:c2:4c:31:fa:a6:f5:6b:2e:90:b5:19:ea:c0:ee:de"
+            - "31:89:4b:a7:c7:d9:42:4e:bc:9b:bf:39:3b:df:67:21"
+      - run: |
+          echo 'codeserver.dev.51b73c1d-15ea-4605-9b35-139337cefb1f.drush.in ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSY3gnr0DrbqJJSnEFy6jazDmAdBm4Zs/EkWIQa7x31qgSYyYJMz5V+pk62lBf2BN42VtubwO83vW9G+yG2K1RGOvZJaK5GBvBb/Ws2ZPcp/4sNHpPzkdd75e5/Pk8AWA59XUbJcBWmrDrHMbWV1j2zqPPikxbqGeTTjSx4QR18LIRei5OwT6VQnaVnJqPAqFZ+oCbpr0DL96foL3UEY8EWT/6GH2cANEGZO4ppbhdDw4uG6TaI7S0lxWMQEVy+iwjCNH/nanjd73cwoYd90E0OVdgNDr3hVbIuE6sUW6UwlaAwuyOM/xJYPg1y0rF66958pyVJlZ9KD5A0kY3bHg7' >> ~/.ssh/known_hosts
+          git remote add pantheon ssh://codeserver.dev.51b73c1d-15ea-4605-9b35-139337cefb1f@codeserver.dev.51b73c1d-15ea-4605-9b35-139337cefb1f.drush.in:2222/~/repository.git
+          git push pantheon $CIRCLE_BRANCH:pr --force
+      - restore_cache:
+          key: v1-terminus-cache-{{ checksum "~/repo/.circleci/config.yml" }}
+      - run: |
+          bash ~/repo/.circleci/scripts/terminus.sh
+      - save_cache:
+          key: v1-terminus-cache-{{ checksum "~/repo/.circleci/config.yml" }}
+          paths:
+            - ~/terminus
+      - run: |
+          cd ~/
+          ~/terminus/vendor/bin/terminus auth:login --machine-token $TERMINUS_MACHINE_TOKEN
+          ~/terminus/vendor/bin/terminus env:clear-cache $SITE_ENV
+          sleep 2
+          bash ~/repo/diffy-utils/runCheck.sh $CIRCLE_SHA1 $API_KEY pr
+  master:
+    docker:
+      - image: circleci/php:7.2
+    working_directory: ~/repo
+    environment:
+      SITE_ENV: 'diffy-marketing.dev'
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "3b:c2:4c:31:fa:a6:f5:6b:2e:90:b5:19:ea:c0:ee:de"
+            - "31:89:4b:a7:c7:d9:42:4e:bc:9b:bf:39:3b:df:67:21"
+      - run: |
+          echo 'codeserver.dev.51b73c1d-15ea-4605-9b35-139337cefb1f.drush.in ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSY3gnr0DrbqJJSnEFy6jazDmAdBm4Zs/EkWIQa7x31qgSYyYJMz5V+pk62lBf2BN42VtubwO83vW9G+yG2K1RGOvZJaK5GBvBb/Ws2ZPcp/4sNHpPzkdd75e5/Pk8AWA59XUbJcBWmrDrHMbWV1j2zqPPikxbqGeTTjSx4QR18LIRei5OwT6VQnaVnJqPAqFZ+oCbpr0DL96foL3UEY8EWT/6GH2cANEGZO4ppbhdDw4uG6TaI7S0lxWMQEVy+iwjCNH/nanjd73cwoYd90E0OVdgNDr3hVbIuE6sUW6UwlaAwuyOM/xJYPg1y0rF66958pyVJlZ9KD5A0kY3bHg7' >> ~/.ssh/known_hosts
+          git remote add pantheon ssh://codeserver.dev.51b73c1d-15ea-4605-9b35-139337cefb1f@codeserver.dev.51b73c1d-15ea-4605-9b35-139337cefb1f.drush.in:2222/~/repository.git
+          git push pantheon $CIRCLE_BRANCH:master --force
+      - restore_cache:
+          key: v1-terminus-cache-{{ checksum "~/repo/.circleci/config.yml" }}
+      - run: |
+          bash ~/repo/.circleci/scripts/terminus.sh
+      - save_cache:
+          key: v1-terminus-cache-{{ checksum "~/repo/.circleci/config.yml" }}
+          paths:
+            - ~/terminus
+      - run: |
+          cd ~/
+          ~/terminus/vendor/bin/terminus auth:login --machine-token $TERMINUS_MACHINE_TOKEN
+          ~/terminus/vendor/bin/terminus env:clear-cache $SITE_ENV
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+#      - display_branch
+      - pr:
+          filters:
+            branches:
+              ignore:
+                - production
+                - master
+                - staging
+                - /release-.*/
+      - master:
+          filters:
+            branches:
+              only: master
