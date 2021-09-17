@@ -10,8 +10,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Diffy
         run: |
-         chmod +x ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
-         ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
+          chmod +x ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
+          ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
+        shell: bash
         env:
           DIFFY_API_KEY: ${{ secrets.DIFFY_API_KEY }}
           DIFFY_PROJECT_ID: ${{ secrets.DIFFY_PROJECT_ID }}
