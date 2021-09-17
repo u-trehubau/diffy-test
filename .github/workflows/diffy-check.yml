@@ -7,10 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Diffy Integration
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Diffy
-        run: ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
+        run: |
+         chmod +x ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
+         ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
         env:
           DIFFY_API_KEY: ${{ secrets.DIFFY_API_KEY }}
           DIFFY_PROJECT_ID: ${{ secrets.DIFFY_PROJECT_ID }}
