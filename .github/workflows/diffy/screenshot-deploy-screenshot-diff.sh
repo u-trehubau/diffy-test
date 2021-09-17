@@ -1,3 +1,7 @@
+wget https://github.com/DiffyWebsite/diffy-cli/releases/download/0.1.18/diffy.phar
+chmod a+x diffy.phar
+cp diffy.phar /usr/local/bin/diffy
+
 #!/bin/bash
 
 # It is a good practice not to store keys or any other variables in the shell script itself.
