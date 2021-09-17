@@ -5,7 +5,7 @@ on:
 jobs:
   diffy_integration:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Diffy Integration
     steps:
       - name: Checkout
         uses: actions/checkout@v2
