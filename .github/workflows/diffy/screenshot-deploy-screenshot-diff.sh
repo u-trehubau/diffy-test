@@ -1,13 +1,11 @@
+#!/bin/bash
+
+# Installation a diffy.phar.
 wget https://github.com/DiffyWebsite/diffy-cli/releases/latest/download/diffy.phar
 chmod a+x diffy.phar
 cp diffy.phar /usr/local/bin/diffy
 
-#!/bin/bash
-
-# It is a good practice not to store keys or any other variables in the shell script itself.
-# Much better to keep them as environmental variables. For example, you can configure these
-# in CircleCI https://circleci.com/docs/2.0/env-vars/.
-
+# Authorisation.
 diffy auth:login $DIFFY_API_KEY
 
 # First set of screenshots
