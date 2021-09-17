@@ -25,7 +25,3 @@ echo "Diff started $DIFF_ID"
 
 # If we just compare two environments.
 diffy project:compare $DIFFY_PROJECT_ID prod stage
-
-# Or maybe we get built environment for Pull Request and we compare it with our UAT.
-CUSTOM_URL="myproject-$PR_NUMBER-environment.platform.sh"
-diffy project:compare $DIFFY_PROJECT_ID prod custom --env2Url=$CUSTOM_URL
