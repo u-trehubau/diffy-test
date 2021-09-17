@@ -1,4 +1,4 @@
-wget https://github.com/DiffyWebsite/diffy-cli/releases/download/0.1.18/diffy.phar
+wget https://github.com/DiffyWebsite/diffy-cli/releases/latest/download/diffy.phar
 chmod a+x diffy.phar
 cp diffy.phar /usr/local/bin/diffy
 
