@@ -10,8 +10,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Diffy
-        uses: ./.github/workflows/diffy/
-        with:
+        run: ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
+        env:
           DIFFY_API_KEY: ${{ secrets.DIFFY_API_KEY }}
           DIFFY_PROJECT_ID: ${{ secrets.DIFFY_PROJECT_ID }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
