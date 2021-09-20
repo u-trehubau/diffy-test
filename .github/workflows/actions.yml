@@ -33,3 +33,4 @@ jobs:
           body: |
             ###  Diffy complete successfully! 🧞‍♀️
             [Link to comparison](https://app.diffy.website#/shared/MTAyODUzMTM3OTI=/diffs/${{ env.DIFF_ID }})
+            DIFF_ID = ${{ env.DIFF_ID }}
