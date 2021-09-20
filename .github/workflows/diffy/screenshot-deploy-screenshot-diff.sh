@@ -28,7 +28,7 @@ diffy auth:login $DIFFY_API_KEY
 #----------- /NOT NEEDED -----------
 
 # Compare two environments.
-DIFF_ID=`diffy project:compare $DIFFY_PROJECT_ID DIFFY_ENV1 DIFFY_ENV2`
+DIFF_ID=`diffy project:compare $DIFFY_PROJECT_ID $DIFFY_ENV1 $DIFFY_ENV2`
 echo "Diff started $DIFF_ID"
 
 # Set ENV variables.
