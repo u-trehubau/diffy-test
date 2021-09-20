@@ -29,5 +29,5 @@ echo "Diff started $DIFF_ID"
 diffy project:compare $DIFFY_PROJECT_ID prod stage
 
 # Set variables.
-echo "DIFFY_PROJECT_ID >> $DIFFY_PROJECT_ID"
-echo "DIFF_ID >> $DIFF_ID"
+echo "DIFFY_PROJECT_ID=$DIFFY_PROJECT_ID" >> $GITHUB_ENV
+echo "DIFF_ID=$DIFF_ID" >> $GITHUB_ENV
