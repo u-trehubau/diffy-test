@@ -25,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Add comment to PR
     steps:
+      - uses: actions/checkout@v2
       - name: Add comment
         uses: peter-evans/create-or-update-comment@v1
         with:
