@@ -27,9 +27,9 @@ diffy auth:login $DIFFY_API_KEY
 #echo "Diff started $DIFF_ID"
 #----------- /NOT NEEDED -----------
 
-# If we just compare two environments.
-DIFF_ID=`diffy project:compare $DIFFY_PROJECT_ID prod stage`
+# Compare two environments.
+DIFF_ID=`diffy project:compare $DIFFY_PROJECT_ID DIFFY_ENV1 DIFFY_ENV2`
 echo "Diff started $DIFF_ID"
 
-# Set variables.
+# Set ENV variables.
 echo "DIFF_ID=$DIFF_ID" >> $GITHUB_ENV
