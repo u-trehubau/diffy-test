@@ -20,7 +20,7 @@ jobs:
           DIFFY_ENV1: prod
           DIFFY_ENV2: stage
           PR_NUMBER: ${{ github.event.pull_request.number }}
-      - run: env
+          DIFF_ID: ${{ env.DIFF_ID }}
       - name: Add comment
         uses: peter-evans/create-or-update-comment@v1
         # You need to start Diffy comparison manually in the first time
