@@ -26,7 +26,7 @@ jobs:
         # You need to start Diffy comparison manually in the first time
         # to get DIFFY_SHARED_HASH. This is the one way what I know.
         env:
-          DIFFY_SHARED_HASH: MTAzMjQ0MTM3OTI=
+          DIFFY_SHARED_HASH: MTAyODQ1MTA5ODU=
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
