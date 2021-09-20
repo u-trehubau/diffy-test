@@ -18,6 +18,8 @@ jobs:
           DIFFY_API_KEY: ${{ secrets.DIFFY_API_KEY }}
           DIFFY_PROJECT_ID: ${{ secrets.DIFFY_PROJECT_ID }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          DIFF_ID: ${{ env.DIFF_ID }}
+      - run: env
   
   # Add Comment to PR
   diffy_integration_comment:
@@ -34,3 +36,4 @@ jobs:
             ###  Diffy complete successfully! 🧞‍♀️
             [Link to comparison](https://app.diffy.website#/shared/MTAyODUzMTM3OTI=/diffs/${{ env.DIFF_ID }})
             DIFF_ID = ${{ env.DIFF_ID }}
+      - run: env
