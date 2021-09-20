@@ -1,0 +1,33 @@
+name: Lighthouse Checker and Deploy
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  diffy_integration:
+    runs-on: ubuntu-latest
+    name: Diffy Integration
+    steps:
+      - uses: actions/checkout@v2
+      - name: Diffy
+        run: |
+          chmod +x ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
+          ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
+        shell: bash
+        env:
+          DIFFY_API_KEY: ${{ secrets.DIFFY_API_KEY }}
+          DIFFY_PROJECT_ID: ${{ secrets.DIFFY_PROJECT_ID }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+  
+  # Add Comment to PR
+  diffy_integration_comment:
+    needs: diffy_integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ###  Diffy complete successfully! 🧞‍♀️
+            [Link to comparison](https://app.diffy.website#/shared/MTAyODUzMTM3OTI=/diffs/${{ env.DIFF_ID }})
