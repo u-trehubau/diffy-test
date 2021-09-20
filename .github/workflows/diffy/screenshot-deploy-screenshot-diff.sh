@@ -1,13 +1,14 @@
 #!/bin/bash
 
 # Installation a diffy.phar.
-wget https://github.com/DiffyWebsite/diffy-cli/releases/latest/download/diffy.phar
-chmod a+x diffy.phar
-cp diffy.phar /usr/local/bin/diffy
+#wget https://github.com/DiffyWebsite/diffy-cli/releases/latest/download/diffy.phar
+#chmod a+x diffy.phar
+#cp diffy.phar /usr/local/bin/diffy
 
 # Authorisation.
-diffy auth:login $DIFFY_API_KEY
+#diffy auth:login $DIFFY_API_KEY
 
+#----------- NOT NEEDED -----------
 # First set of screenshots.
 #echo "Starting taking pre-deployment screenshots..."
 #SCREENSHOT_ID1=`diffy screenshot:create $DIFFY_PROJECT_ID production --wait`
@@ -24,10 +25,12 @@ diffy auth:login $DIFFY_API_KEY
 # Will receive a notification with results by email / slack.
 #DIFF_ID=`diffy diff:create $DIFFY_PROJECT_ID $SCREENSHOT_ID1 $SCREENSHOT_ID2`
 #echo "Diff started $DIFF_ID"
+#----------- /NOT NEEDED -----------
 
 # If we just compare two environments.
-DIFF_ID=`diffy project:compare $DIFFY_PROJECT_ID prod stage`
-echo "Diff started $DIFF_ID"
+#DIFF_ID=`diffy project:compare $DIFFY_PROJECT_ID prod stage`
+#echo "Diff started $DIFF_ID"
+DIFF_ID=123456
 
 # Set variables.
 echo "DIFF_ID=$DIFF_ID" >> $GITHUB_ENV
