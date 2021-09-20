@@ -1,4 +1,4 @@
-name: Lighthouse Checker and Deploy
+name: Diffy Check
 on:
   pull_request:
     types: [closed]
