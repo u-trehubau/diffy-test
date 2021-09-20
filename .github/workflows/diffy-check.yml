@@ -1,4 +1,4 @@
-name: Diffy Integration
+name: Diffy Check Manual
 on: 
   workflow_dispatch:
 
