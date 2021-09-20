@@ -19,15 +19,6 @@ jobs:
           DIFFY_PROJECT_ID: ${{ secrets.DIFFY_PROJECT_ID }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           DIFF_ID: ${{ env.DIFF_ID }}
-      - run: env
-  
-  # Add Comment to PR
-  diffy_integration_comment:
-    needs: diffy_integration
-    runs-on: ubuntu-latest
-    name: Add comment to PR
-    steps:
-      - uses: actions/checkout@v2
       - name: Add comment
         uses: peter-evans/create-or-update-comment@v1
         with:
