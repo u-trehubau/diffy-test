@@ -21,10 +21,12 @@ jobs:
           DIFF_ID: ${{ env.DIFF_ID }}
       - name: Add comment
         uses: peter-evans/create-or-update-comment@v1
+        # You need to start Diffy comparison manually in the first time
+        # to get DIFFY_SHARED_HASH. This is the one way what I know.
+        env:
+          DIFFY_SHARED_HASH: MTAyODUzMTM3OTI
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ###  Diffy complete successfully! 🧞‍♀️
-            [Link to comparison](https://app.diffy.website#/shared/MTAyODUzMTM3OTI=/diffs/${{ env.DIFF_ID }})
-            DIFF_ID = ${{ env.DIFF_ID }}
-      - run: env
+            ###  Diffy comparison complete successfully! 🧞‍♀️
+            <a href="https://app.diffy.website#/shared/${{ env.DIFFY_SHARED_HASH }}=/diffs/${{ env.DIFF_ID }}" target="_blank">Go to Diffy to check the result</a>
