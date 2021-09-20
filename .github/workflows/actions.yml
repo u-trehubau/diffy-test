@@ -23,6 +23,7 @@ jobs:
   diffy_integration_comment:
     needs: diffy_integration
     runs-on: ubuntu-latest
+    name: Add comment to PR
     steps:
       - name: Add comment
         uses: peter-evans/create-or-update-comment@v1
