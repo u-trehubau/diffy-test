@@ -31,4 +31,4 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             ###  Diffy comparison complete successfully! 🧞‍♀️
-            [Go to Diffy to check the result](https://app.diffy.website#/shared/${{ env.DIFFY_SHARED_HASH }}=/diffs/${{ env.DIFF_ID }}){:target="_blank"}
+            [Go to Diffy to check the result](https://app.diffy.website#/shared/${{ env.DIFFY_SHARED_HASH }}=/diffs/${{ env.DIFF_ID }}?target=_blank)
