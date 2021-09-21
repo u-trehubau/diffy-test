@@ -5,6 +5,9 @@ wget https://github.com/DiffyWebsite/diffy-cli/releases/latest/download/diffy.ph
 chmod a+x diffy.phar
 cp diffy.phar /usr/local/bin/diffy
 
+diffy --help
+echo diffy --help
+
 # Authorisation.
 diffy auth:login $DIFFY_API_KEY
 
