@@ -15,11 +15,12 @@ jobs:
           ./.github/workflows/diffy/screenshot-deploy-screenshot-diff.sh
         shell: bash
         env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          MAIN_API_URL: https://app.diffy.website/api
           DIFFY_API_KEY: ${{ secrets.DIFFY_API_KEY }}
           DIFFY_PROJECT_ID: ${{ secrets.DIFFY_PROJECT_ID }}
           DIFFY_ENV1: prod
           DIFFY_ENV2: stage
-          PR_NUMBER: ${{ github.event.pull_request.number }}
           DIFFY_DIFF_ID: ${{ env.DIFF_ID }}
           DIFFY_DIFF_LINK: ${{ env.DIFFY_DIFF_LINK }}
       - name: Add comment
