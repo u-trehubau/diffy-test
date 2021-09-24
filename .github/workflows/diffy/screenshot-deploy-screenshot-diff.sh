@@ -36,7 +36,7 @@ DIFFY_DIFF_ID=`diffy project:compare $DIFFY_PROJECT_ID $DIFFY_ENV1 $DIFFY_ENV2`
 echo "Diff started $DIFFY_DIFF_ID"
 
 # Get link to diff.
-DIFFY_DIFF_LINK=$(curl -X GET "https://app.diffy.website/api/diffs/$DIFFY_DIFF_ID" -H "accept: application/json" -H "Authorization: Bearer $DIFFY_API_TOKEN")
+DIFFY_DIFF_LINK=$(curl -X GET "$MAIN_API_URL/diffs/$DIFFY_DIFF_ID" -H "accept: application/json" -H "Authorization: Bearer $DIFFY_API_TOKEN")
 DIFFY_DIFF_LINK=$(echo $DIFFY_DIFF_LINK | jq -r '.diffSharedUrl')
 
 # Set ENV variables.
